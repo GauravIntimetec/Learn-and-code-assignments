@@ -1,5 +1,9 @@
 import csv
 
+def dms_to_dd(longitude_dms,latitude_dms):
+    pass
+
+
 def read_country_data(file_path):
     cluster = []  # List of dictionaries containing country data
     with open(file_path, mode='r') as file:
@@ -7,6 +11,12 @@ def read_country_data(file_path):
         for lines in country_longitude_latitude:
             longitude = float(lines[2])
             latitude = float(lines[1])
+            
+            # if '°' in longitude or "'" in longitude or '"' in longitude:
+            #     longitude, latitude = dms_to_dd(longitude,latitude)
+
+
+
             for i in range(-18, 19):      #these for loops are to traverse the grids 36 * 18 
                 for j in range(-9, 10):
                     if (i - 1) * 10 < longitude <= i * 10 and (j - 1) * 10 < latitude <= j * 10:
@@ -23,11 +33,11 @@ def organize_countries_by_coordinates(cluster):
     return grouped_countries
 
 def print_grouped_countries(grouped_countries):
-    num = 0
+    num_of_groups = 0
     for coordinates, countries in grouped_countries.items():
         print(f'Coordinates {coordinates}: {countries}')
-        num += 1
-    return num
+        num_of_groups += 1
+    return num_of_groups
 
 def main():
     file_path = 'world_country_and_usa_states_latitude_and_longitude_values.csv'
